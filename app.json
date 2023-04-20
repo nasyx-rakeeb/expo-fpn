@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "expo-fpn",
+    "name": "Expo Fpn",
     "slug": "expo-fpn",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -18,13 +18,24 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.nasyx.expofpn",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth"
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "70271697-c301-4791-a917-3bb277dab6f1"
+      }
     }
   }
 }

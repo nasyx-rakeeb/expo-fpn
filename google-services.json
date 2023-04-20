@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "878481698655",
+    "project_id": "expo-fpn",
+    "storage_bucket": "expo-fpn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878481698655:android:9115805aac0e3e585990ea",
+        "android_client_info": {
+          "package_name": "com.nasyx.expofpn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878481698655-n081ss5tdkbfmfrb2tk39c6ddc1ts1gu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nasyx.expofpn",
+            "certificate_hash": "7e337d9ca796c91a69940ca5c1269a143a2fc657"
+          }
+        },
+        {
+          "client_id": "878481698655-u3bd6bidghgifuocl6o1uuq9gbuvtvqa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nasyx.expofpn",
+            "certificate_hash": "20147e2190a0dc95aa4f7e715e1bb94036ea57ce"
+          }
+        },
+        {
+          "client_id": "878481698655-s2is6k7reofblb8qn0oi933ad54v9p3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPNluU8iI-T9CzndKlcT8qd9dxD4nC244"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878481698655-s2is6k7reofblb8qn0oi933ad54v9p3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
