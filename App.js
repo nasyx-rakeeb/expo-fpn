@@ -6,7 +6,8 @@ import {
     Text,
     View,
     Alert,
-    Pressable
+    Pressable,
+    AppState
 } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import React, {
@@ -16,6 +17,19 @@ import React, {
 import Signup from "./screens/Signup.js"
 import Login from "./screens/Login.js"
 import Home from "./screens/Home.js"
+import firebase from "./firebase/main.js"
+import '@react-native-firebase/auth';
+import '@react-native-firebase/firestore';
+
+const setUserOnline = (uid) => {
+  const userDoc = firebase.firestore().collection('users').doc(uid);
+  userDoc.set({ online: true }, { merge: true });
+};
+
+const setUserOffline = (uid) => {
+  const userDoc = firebase.firestore().collection('users').doc(uid);
+  userDoc.set({ online: false, lastSeen: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+};
 
 async function requestUserPermission() {
     const authStatus = await messaging().requestPermission();
@@ -25,7 +39,7 @@ async function requestUserPermission() {
 }
 
 export default function App() {
-    const [token, setToken] = useState()
+   /* const [token, setToken] = useState()
     useEffect(() => {
         if (requestUserPermission()) {
             messaging().getToken().then(token => {
@@ -55,12 +69,42 @@ export default function App() {
         });
 
         return unsubscribe;
-    }, [])
-console.log(token)
+    }, [])*/
+    
+     const [userOnline, setUserOnline] = useState(false);
+
+  useEffect(() => {
+    const authStateListener = firebase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        setUserOnline(true);
+
+        const userDoc = firebase.firestore().collection('users').doc(user.uid);
+        userDoc.set({ online: true }, { merge: true });
+
+        const appStateListener = AppState.addEventListener('change', (nextAppState) => {
+          if (nextAppState === 'active') {
+            setUserOnline(true);
+            userDoc.set({ online: true }, { merge: true });
+          } else {
+            setUserOnline(false);
+            userDoc.set({ online: false, lastSeen: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+          }
+        });
+
+        return () => {
+          appStateListener.remove();
+          setUserOnline(false);
+          userDoc.set({ online: false, lastSeen: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+        };
+      }
+    });
+
+    return () => authStateListener();
+  }, []);
     return (
         <>
           <StatusBar />
-          <Signup token={token} />
+          <Signup />
         </>
     );
 }

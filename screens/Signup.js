@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import firebase from "../firebase/main.js"
 
-const Signup = ({token}) => {
+const Signup = ({token="5"}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,6 +12,9 @@ const Signup = ({token}) => {
   const handleSignup = async () => {
   try {
     const result = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    if (result.user.uid) {
+        Alert.alert("Success", result.user.uid)
+    }
     const { uid } = result.user;
     const userData = { uid, email, username, token };
     await firebase.firestore().collection('users').doc(uid).set(userData);

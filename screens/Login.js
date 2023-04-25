@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import firebase from "../firebase/main.js" 
 
-const Login = ({token}) => {
+const Login = ({token="1"}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     try {
       const result = await firebase.auth().signInWithEmailAndPassword(email, password);
-      console.log('User logged in:', result.user.email);
+      if (result.user.uid) {
+          Alert.alert("Success", result.user.uid)
+      }
       const { uid } = result.user;
       const userDoc = await firebase.firestore().collection('users').doc(uid).get();
       await firebase.firestore().collection('users').doc(uid).update({
